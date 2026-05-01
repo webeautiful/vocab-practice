@@ -4,10 +4,10 @@ import CategoryListPage from './pages/CategoryListPage'
 import LearnPage from './pages/LearnPage'
 import PracticePage from './pages/PracticePage'
 import ResultPage from './pages/ResultPage'
-
-function Placeholder({ name }: { name: string }) {
-  return <div className="p-8 text-2xl text-center">{name}</div>
-}
+import ParentLoginPage from './pages/ParentLoginPage'
+import ParentDashboardPage from './pages/ParentDashboardPage'
+import ParentCategoryPage from './pages/ParentCategoryPage'
+import ParentSettingsPage from './pages/ParentSettingsPage'
 
 export default function App() {
   return (
@@ -18,10 +18,10 @@ export default function App() {
         <Route path="/learn/:categoryId" element={<LearnPage />} />
         <Route path="/practice/:categoryId" element={<PracticePage />} />
         <Route path="/result" element={<ResultPage />} />
-        <Route path="/parent/login" element={<Placeholder name="家长登录" />} />
-        <Route path="/parent/dashboard" element={<Placeholder name="家长面板" />} />
-        <Route path="/parent/category/:categoryId" element={<Placeholder name="主题详情" />} />
-        <Route path="/parent/settings" element={<Placeholder name="设置" />} />
+        <Route path="/parent/login" element={<ParentLoginPage />} />
+        <Route path="/parent/dashboard" element={<ParentDashboardPage />} />
+        <Route path="/parent/category/:categoryId" element={<ParentCategoryPage />} />
+        <Route path="/parent/settings" element={<ParentSettingsPage />} />
       </Routes>
     </BrowserRouter>
   )
