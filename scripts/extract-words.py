@@ -295,7 +295,7 @@ def extract(html_path: str):
 
 if __name__ == '__main__':
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    html_path = '/Users/xiongfusong/claude-workspace/content.html'
+    html_path = os.path.join(script_dir, 'content.html')
     output_path = os.path.join(script_dir, '..', 'src', 'data', 'words.json')
     output_path = os.path.normpath(output_path)
 
