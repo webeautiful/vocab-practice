@@ -11,6 +11,7 @@ export default function ParentSettingsPage() {
   const navigate = useNavigate()
   const [settings, setSettings] = useState(getSettings())
   const [resetConfirm, setResetConfirm] = useState<number | null>(null)
+  const [resetAllConfirm, setResetAllConfirm] = useState(false)
 
   function handleChange(partial: Partial<typeof settings>) {
     const updated = { ...settings, ...partial }
@@ -37,6 +38,13 @@ export default function ParentSettingsPage() {
     await Promise.all(errorsToDelete.map(r => db.errorRecords.delete(r.wordId)))
 
     setResetConfirm(null)
+  }
+
+  async function resetAll() {
+    await db.learningRecords.clear()
+    await db.errorRecords.clear()
+    handleChange({ unlockedCategories: [1] })
+    setResetAllConfirm(false)
   }
 
   return (
@@ -131,6 +139,37 @@ export default function ParentSettingsPage() {
                 </button>
                 <button
                   onClick={() => setResetConfirm(null)}
+                  className="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300"
+                >
+                  取消
+                </button>
+              </div>
+            </div>
+          )}
+
+          <div className="border-t border-gray-200 pt-4">
+            <button
+              onClick={() => setResetAllConfirm(true)}
+              className="w-full bg-red-100 text-red-600 font-medium py-2 rounded-lg hover:bg-red-200"
+            >
+              重置全部进度
+            </button>
+          </div>
+
+          {resetAllConfirm && (
+            <div className="bg-red-50 border border-red-200 rounded-xl p-4 space-y-3">
+              <p className="text-red-700">
+                确定要重置所有主题的学习进度吗？学习记录、错题本将全部清空，已解锁的主题将重新锁定。此操作不可恢复。
+              </p>
+              <div className="flex gap-3">
+                <button
+                  onClick={resetAll}
+                  className="flex-1 bg-red-500 text-white py-2 rounded-lg hover:bg-red-600"
+                >
+                  确认全部重置
+                </button>
+                <button
+                  onClick={() => setResetAllConfirm(false)}
                   className="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300"
                 >
                   取消
